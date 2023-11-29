@@ -1,0 +1,101 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=PrivateInstanceFields/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="aaBb" /&gt;</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=PrivateStaticFields/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="aaBb" /&gt;</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=2CBD6971A7955044AD2624B84FB49E38/Position/@EntryValue">9</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=567DCF4B487C244A9F6BB46E4E9F3B84/Position/@EntryValue">6</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=79EA624A2C449D47A498E55EC51D5AE2/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=79EA624A2C449D47A498E55EC51D5AE2/EntryName/@EntryValue">&lt;No Name&gt;</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=79EA624A2C449D47A498E55EC51D5AE2/Position/@EntryValue">10</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=7F2A1BE8D0078241A9AE7802038BAD3C/Position/@EntryValue">7</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=C4795E57DDEC1C4F97BBC8C7173EBBCA/Position/@EntryValue">8</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Description/@EntryValue">AoC Part Example</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Field/=expectation/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Field/=expectation/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Field/=input/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Field/=input/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Field/=name/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Field/=name/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Field/=Num/@KeyIndexDefined">False</s:Boolean>
+	
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Shortcut/@EntryValue">aocex</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=12A6B95DE4EF234AB2BE7FB59CDA9D31/Text/@EntryValue">private readonly Example $name$ = new ($input$, $expectation$)</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/CustomProperties/=Extension/@EntryIndexedValue">cs</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/CustomProperties/=FileName/@EntryIndexedValue">Day</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/CustomProperties/=ValidateFileName/@EntryIndexedValue">True</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Description/@EntryValue">AoC Day</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Field/=CLASS/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Field/=CLASS/Expression/@EntryValue">getFileNameWithoutExtension()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Field/=CLASS/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Field/=CLASS/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Field/=NAMESPACE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Field/=NAMESPACE/Expression/@EntryValue">fileDefaultNamespace()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Field/=NAMESPACE/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Field/=NAMESPACE/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Scope/=E8F0594528C33E45BBFEC6CFE851095D/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Scope/=E8F0594528C33E45BBFEC6CFE851095D/Type/@EntryValue">InCSharpProjectFile</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=79EA624A2C449D47A498E55EC51D5AE2/Text/@EntryValue">using System;
+
+namespace $NAMESPACE$;
+
+public partial class $CLASS$
+{
+	public partial class Part1
+	{
+		public string Solve(string input)
+		{
+			throw new NotImplementedException();
+		}
+	}
+	public partial class Part2
+	{
+		public string Solve(string input)
+		{
+			throw new NotImplementedException();
+		}
+	}
+}
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADEF6E24C2A62A4390FF05C7D98D6F7B/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADEF6E24C2A62A4390FF05C7D98D6F7B/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADEF6E24C2A62A4390FF05C7D98D6F7B/Description/@EntryValue">AoC Day Class</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADEF6E24C2A62A4390FF05C7D98D6F7B/Field/=Num/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADEF6E24C2A62A4390FF05C7D98D6F7B/Field/=Num/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADEF6E24C2A62A4390FF05C7D98D6F7B/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADEF6E24C2A62A4390FF05C7D98D6F7B/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADEF6E24C2A62A4390FF05C7D98D6F7B/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADEF6E24C2A62A4390FF05C7D98D6F7B/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADEF6E24C2A62A4390FF05C7D98D6F7B/Shortcut/@EntryValue">aocday</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADEF6E24C2A62A4390FF05C7D98D6F7B/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADEF6E24C2A62A4390FF05C7D98D6F7B/Text/@EntryValue">
+public partial class Day$Num$
+{
+	public partial class Part1
+	{
+	    $END$
+		public string Solve(string input)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
+	public partial class Part2
+	{
+		public string Solve(string input)
+		{
+			throw new NotImplementedException();
+		}
+	}
+}
+</s:String></wpf:ResourceDictionary>

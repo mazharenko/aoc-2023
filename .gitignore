@@ -1,0 +1,12 @@
+[Oo]bj/
+[Bb]in/
+*.suo
+
+
+.idea/
+.vscode/
+.vs/
+
+*.DotSettings.user
+
+SESSION.COOKIE
