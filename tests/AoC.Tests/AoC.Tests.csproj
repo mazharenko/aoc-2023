@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\aoc\aoc.csproj"/>
+  </ItemGroup>
   <ItemGroup>
     <None Update="inputs\*.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
