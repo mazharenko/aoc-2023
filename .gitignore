@@ -10,3 +10,4 @@
 *.DotSettings.user
 
 SESSION.COOKIE
+.DS_Store
