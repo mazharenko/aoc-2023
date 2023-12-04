@@ -25,11 +25,11 @@ let solve1 input =
     |> Array.map (fun matchingNumbers -> pown 2 (Set.count matchingNumbers - 1))
     |> Array.sum
     
-let rec private calculate2 list =
+let rec private calculate2 (currentCount, list) =
     match list with
-    | [] -> 0
+    | [] -> currentCount
     // don't expect to have any matching numbers in the last game
-    | [(count, _)] -> count
+    | [(count, _)] -> count + currentCount
     // having headCount current cards,
     // determine matches,
     // take matches number of the following cards,
@@ -40,10 +40,10 @@ let rec private calculate2 list =
         let cardsToCopy, rest = List.splitAt matches tail
         let newTail =
             (cardsToCopy |> List.map(fun (count, card) -> count+headCount, card)) @ rest
-        headCount + (calculate2 newTail)
+        (calculate2 (currentCount + headCount, newTail))
     
 let solve2 (input : Card[]) : int =
     input
     |> Array.map (fun card -> 1,card)
     |> Array.toList
-    |> calculate2
+    |> (fun x -> calculate2 (0, x))
