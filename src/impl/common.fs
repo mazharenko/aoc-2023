@@ -1,6 +1,10 @@
 [<AutoOpen>]
 module common
 
+let splitToTuple2 (separators : string array) (s : string) =
+    let split = s.Split(separators, System.StringSplitOptions.RemoveEmptyEntries)
+    split.[0], split.[1]
+    
 module Pattern1 =
     let read (f : string -> 'a) (data : string) = 
         data.Split([|"\n"; "\r"|], System.StringSplitOptions.RemoveEmptyEntries) 
