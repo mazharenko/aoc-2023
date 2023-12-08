@@ -1,18 +1,17 @@
 [<AutoOpen>]
 module common
 
+open System.Numerics
+
 let splitToTuple2 (separators : string array) (s : string) =
     let split = s.Split(separators, System.StringSplitOptions.RemoveEmptyEntries)
     split.[0], split.[1]
+    
 let inline gcd (x : ^a) (y : ^a) : ^a =
-    let zero = LanguagePrimitives.GenericZero
-    let mutable absx = abs x
-    let mutable absy = abs y
-    while absx <> zero && absy <> zero do
-        if absx > absy 
-        then absx <- absx % absy
-        else absy <- absy % absx
-    absx + absy
+    let r =
+        (BigInteger.CreateChecked x, BigInteger.CreateChecked y)
+        |> BigInteger.GreatestCommonDivisor
+    'a.CreateChecked r
     
 let inline lcm x y = 
     let zero = LanguagePrimitives.GenericZero
