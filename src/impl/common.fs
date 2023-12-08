@@ -4,6 +4,21 @@ module common
 let splitToTuple2 (separators : string array) (s : string) =
     let split = s.Split(separators, System.StringSplitOptions.RemoveEmptyEntries)
     split.[0], split.[1]
+let inline gcd (x : ^a) (y : ^a) : ^a =
+    let zero = LanguagePrimitives.GenericZero
+    let mutable absx = abs x
+    let mutable absy = abs y
+    while absx <> zero && absy <> zero do
+        if absx > absy 
+        then absx <- absx % absy
+        else absy <- absy % absx
+    absx + absy
+    
+let inline lcm x y = 
+    let zero = LanguagePrimitives.GenericZero
+    if x = zero || y = zero
+    then zero
+    else abs (x * y) / gcd x y
     
 module Pattern1 =
     let read (f : string -> 'a) (data : string) = 
