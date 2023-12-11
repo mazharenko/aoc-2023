@@ -29,5 +29,7 @@ public partial class InputTests
 		yield return new PartInputCaseData(9, 2, "803");
 		yield return new PartInputCaseData(10, 1, "7063");
 		yield return new PartInputCaseData(10, 2, "589");
+		yield return new PartInputCaseData(11, 1, "9686930");
+		yield return new PartInputCaseData(11, 2, "630728425490");
 	}
 }

@@ -1,20 +1,46 @@
+using mazharenko.AoCAgent.Generator;
+
 namespace aoc.Day11;
 
 internal partial class Day11
 {
 	internal partial class Part1
 	{
-		public string Solve(string input)
-		{
-			throw new NotImplementedException();
-		}
+		private readonly Example example = new(
+			"""
+			...#......
+			.......#..
+			#.........
+			..........
+			......#...
+			.#........
+			.........#
+			..........
+			.......#..
+			#...#.....
+			""", 374);
+
+		public char[,] Parse(string input) => day11.parse(input);
+		public long Solve(char[,] input) => day11.solve1(input);
 	}
 
-	internal partial class Part2
+[BypassNoExamples]	
+internal partial class Part2
 	{
-		public string Solve(string input)
-		{
-			throw new NotImplementedException();
-		}
+		private readonly Example example = new(
+			"""
+			...#......
+			.......#..
+			#.........
+			..........
+			......#...
+			.#........
+			.........#
+			..........
+			.......#..
+			#...#.....
+			""", 82000210);
+		public char[,] Parse(string input) => day11.parse(input);
+		public long Solve(char[,] input) => day11.solve2(input);
 	}
 }

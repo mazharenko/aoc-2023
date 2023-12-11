@@ -27,10 +27,16 @@ type Point = | Point of (int * int) with
         let x = x1 - x2
         let y = y1 - y2
         Point (x, y)
+    static member (*)(Point (x1 : int, y1 : int), n:int) : Point = 
+        let x = x1 * n
+        let y = y1 * n
+        Point (x, y)
 module Point = 
     let dir (Point (x,  y)) = 
         Point (sign x, sign y)
-        
+    let mlen (Point (x1,y1)) (Point (x2, y2)) = 
+        abs (x1 - x2) + abs (y1 - y2)
+
 module Pattern1 =
     let read (f : string -> 'a) (data : string) = 
         data.Split([|"\n"; "\r"|], System.StringSplitOptions.RemoveEmptyEntries) 
@@ -45,7 +51,7 @@ module Seq =
     let group keySelector valueSelector source = 
         source |> Seq.groupBy keySelector 
         |> Seq.map (fun (key, entries) -> key, valueSelector entries)
-    
+        
 module Array2D = 
     let toSeq (a:'a[,]) : seq<'a> =
         a |> Seq.cast<'a>
@@ -70,6 +76,9 @@ module Array2D =
         tryGet i j source
     let indexed (a:'a[,]) : ((int*int)*'a)[,] = 
         Array2D.mapi (fun i j x -> (i,j),x) a
+    let pointed (a:'a[,]) : seq<Point*'a> =
+        a |> Array2D.mapi (fun i j x -> Point(i,j), x)
+        |> toSeq
         
     module Adj =
         let d4 =
