@@ -14,4 +14,10 @@
     <ProjectReference Include="..\impl\impl.fsproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="SESSION.COOKIE">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

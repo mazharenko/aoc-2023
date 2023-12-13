@@ -74,11 +74,28 @@ module Array2D =
         Array2D.get source i j
     let tryAtPoint (Point(i,j)) source = 
         tryGet i j source
+    let transpose (a:'a[,]) = 
+        Array2D.initBased
+            (Array2D.base2 a)
+            (Array2D.base1 a)
+            (Array2D.length2 a)
+            (Array2D.length1 a)
+            (fun i j -> a[j, i])
     let indexed (a:'a[,]) : ((int*int)*'a)[,] = 
         Array2D.mapi (fun i j x -> (i,j),x) a
     let pointed (a:'a[,]) : seq<Point*'a> =
         a |> Array2D.mapi (fun i j x -> Point(i,j), x)
         |> toSeq
+    let rows (a: 'a[,]) : int[] =
+        [|
+            for i in (Array2D.base1 a)..(Array2D.length1 a - 1) do
+                yield i
+        |]
+    let cols (a: 'a[,]) : int[] =
+        [|
+            for j in (Array2D.base2 a)..(Array2D.length2 a - 1) do
+                yield j
+        |]
         
     module Adj =
         let d4 =
