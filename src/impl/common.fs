@@ -1,6 +1,8 @@
 [<AutoOpen>]
 module common
 
+open System
+open System.Collections.Generic
 open System.Numerics
 
 let splitToTuple2 (separators : string array) (s : string) =
@@ -18,6 +20,31 @@ let inline lcm x y =
     if x = zero || y = zero
     then zero
     else abs (x * y) / gcd x y
+    
+let memoize f keyf =
+    let cache = Dictionary<_, _>()
+    fun x ->
+        let key = keyf x
+        match cache.TryGetValue(key) with
+        | true, value -> 
+            value
+        | _ ->
+            let value = f x
+            cache.Add(key, value)
+            value
+let memorec f keyf =
+   let cache = Dictionary<_,_>()
+   let rec frec x =
+       let key = keyf x
+       match cache.TryGetValue(key) with
+       | true, value -> 
+           value
+       | _ ->
+           let value = f frec x
+           cache.Add(key, value)
+           value
+   in frec
+ 
 type Point = | Point of (int * int) with
     static member (+)(Point (x1 : int, y1 : int), Point (x2 : int, y2 : int)) : Point = 
         let x = x1 + x2
