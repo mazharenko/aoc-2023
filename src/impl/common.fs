@@ -123,6 +123,12 @@ module Array2D =
             for j in (Array2D.base2 a)..(Array2D.length2 a - 1) do
                 yield j
         |]
+    let rotateCCW (a: 'a[,]) : 'a[,] =
+        Array2D.init (Array2D.length2 a) (Array2D.length1 a)
+            (fun i j -> a[j, Array2D.length1 a - i - 1])
+    let rotateCW (a: 'a[,]) : 'a[,] =
+        Array2D.init (Array2D.length2 a) (Array2D.length1 a)
+            (fun i j -> a[Array2D.length2 a - j - 1, i ])
         
     module Adj =
         let d4 =
