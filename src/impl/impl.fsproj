@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <Compile Include="common.fs" />
+        <Compile Include="bfs.fs" />
         <Compile Include="day*.fs" />
     </ItemGroup>
 
