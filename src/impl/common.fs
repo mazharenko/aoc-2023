@@ -171,9 +171,33 @@ module Result =
         function 
         | Ok x -> x
         | Error error -> failwith (error.ToString())
- 
         
 module RuntimeFarkle =
     let parseUnsafe parser s =
         RuntimeFarkle.parseString parser s
         |> Result.get
+        
+module Range =
+    type T = int64*int64
+    let create from to' : T = (from,to')
+    let start ((from, _) : T) = from
+    let finish ((_, to') : T) = to'
+    let isEmpty ((from, to') : T) =
+        to' < from
+    let length ((from, to') : T) =
+        let len = (to' - from) + 1L
+        if (len >= 0) then len else 0
+    let contains x ((from, to') : T) = from <= x && x <= to'
+    let intersect (r1: T) (r2: T) : T option=
+        let intersectionCandidate =
+            (max (start r1) (start r2), min (finish r1) (finish r2))
+        if isEmpty intersectionCandidate then None
+        else Some intersectionCandidate
+    let subtract ((from1, to1) : T) ((from2, to2) : T) : T list=
+        [
+            (from1, min (from2-1L) to1)
+            (max from1 (to2+1L), to1)
+        ] |> List.filter (not << isEmpty)
+        
+    let shift n ((from, to') : T) =
+        (from + n, to' + n)
