@@ -49,27 +49,36 @@ let memorec f keyf =
            cache.Add(key, value)
            value
    in frec
+
+module gmath =
+    let sign (a: 'a when INumber<'a>) =
+        a |> 'a.Sign |> 'a.CreateChecked
+    let abs (a: 'a when INumberBase<'a>) =
+        'a.Abs a
  
-type Point = | Point of (int * int) with
-    static member (+)(Point (x1 : int, y1 : int), Point (x2 : int, y2 : int)) : Point = 
+type Point<^a when INumber<^a>> = | Point of (^a * ^a) with
+    static member inline (+)(Point (x1 : ^a, y1 : ^a), Point (x2 : ^a, y2 : ^a)) : Point<^a> = 
         let x = x1 + x2
         let y = y1 + y2
         Point (x, y)
-    static member (-)(Point (x1 : int, y1 : int), Point (x2 : int, y2 : int)) : Point = 
+    static member inline (-)(Point (x1 : ^a, y1 : ^a), Point (x2 : ^a, y2 : ^a)) : Point<^a> = 
         let x = x1 - x2
         let y = y1 - y2
         Point (x, y)
-    static member (*)(Point (x1 : int, y1 : int), n:int) : Point = 
+    static member inline (*)(Point (x1 : ^a, y1 : ^a), n:^a) : Point<^a> = 
         let x = x1 * n
         let y = y1 * n
         Point (x, y)
+type Point = Point<int>
+    
 module Point =
+    let create x y = Point(x, y)
     let x (Point(xx, _)) = xx
     let y (Point(_, yy)) = yy
-    let dir (Point (x,  y)) = 
-        Point (sign x, sign y)
-    let mlen (Point (x1,y1)) (Point (x2, y2)) = 
-        abs (x1 - x2) + abs (y1 - y2)
+    let dir (Point(x: 'a, y: 'a)) : Point<'a> =
+        Point(gmath.sign x, gmath.sign y)
+    let mlen (Point(x1: 'a, y1: 'a)) (Point (x2: 'a, y2: 'a)) =
+        gmath.abs (x1 - x2) + gmath.abs (y1 - y2)
 
 module Pattern1 =
     let read (f : string -> 'a) (data : string) = 
@@ -117,7 +126,7 @@ module Array2D =
             (fun i j -> a[j, i])
     let indexed (a:'a[,]) : ((int*int)*'a)[,] = 
         Array2D.mapi (fun i j x -> (i,j),x) a
-    let pointed (a:'a[,]) : seq<Point*'a> =
+    let pointed (a:'a[,]) : seq<Point<int>*'a> =
         a |> Array2D.mapi (fun i j x -> Point(i,j), x)
         |> toSeq
     let rows (a: 'a[,]) : int[] =
