@@ -4,6 +4,7 @@ module common
 open System
 open System.Collections.Generic
 open System.Numerics
+open Farkle
 
 let splitToTuple2 (separators : string array) (s : string) =
     let split = s.Split(separators, StringSplitOptions.RemoveEmptyEntries)
@@ -171,3 +172,8 @@ module Result =
         | Ok x -> x
         | Error error -> failwith (error.ToString())
  
+        
+module RuntimeFarkle =
+    let parseUnsafe parser s =
+        RuntimeFarkle.parseString parser s
+        |> Result.get
