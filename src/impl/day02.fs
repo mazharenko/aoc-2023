@@ -48,8 +48,7 @@ let private game = "Game" ||= [
 let parse input =
     let parser = RuntimeFarkle.build game
     input
-    |> Pattern1.read (RuntimeFarkle.parseString parser)
-    |> Array.map Result.get
+    |> Pattern1.read (RuntimeFarkle.parseUnsafe parser)
 
 let solve1 =
     fun input ->

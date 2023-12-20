@@ -15,8 +15,7 @@ let parse input =
     ]
     let parser = RuntimeFarkle.build card
     let parseLine line =
-        RuntimeFarkle.parseString parser line
-        |> Result.get
+        RuntimeFarkle.parseUnsafe parser line
     Pattern1.read parseLine input
     
 let solve1 input =

@@ -23,13 +23,11 @@ let parse input =
     let blocks = Pattern2.read id input
     let instructions =
         blocks[0]
-        |> RuntimeFarkle.parseString (RuntimeFarkle.build instructions)
-        |> Result.get
+        |> RuntimeFarkle.parseUnsafe (RuntimeFarkle.build instructions)
     let mapEntryParser = RuntimeFarkle.build mapEntry
     let parseMapEntry s =
         s
-        |> RuntimeFarkle.parseString mapEntryParser
-        |> Result.get
+        |> RuntimeFarkle.parseUnsafe mapEntryParser
         
     let map = Pattern1.read parseMapEntry blocks[1] |> Map.ofArray
         

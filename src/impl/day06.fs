@@ -12,8 +12,8 @@ let private distance = "Distance" ||= [
 
 let parse input =
     let lines = Pattern1.read id input
-    let times = RuntimeFarkle.parseString (RuntimeFarkle.build time) lines[0] |> Result.get
-    let distances = RuntimeFarkle.parseString (RuntimeFarkle.build distance) lines[1] |> Result.get
+    let times = RuntimeFarkle.parseUnsafe (RuntimeFarkle.build time) lines[0]
+    let distances = RuntimeFarkle.parseUnsafe (RuntimeFarkle.build distance) lines[1] 
     List.zip times distances
 
 let solve input =

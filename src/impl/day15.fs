@@ -34,8 +34,7 @@ module Part2 =
     let parse (input : string) =
         let parser = RuntimeFarkle.build operation
         input.Split(',')
-        |> Array.map (RuntimeFarkle.parseString parser)
-        |> Array.map Result.get
+        |> Array.map (RuntimeFarkle.parseUnsafe parser)
     let execute map op =
         match op with
         | Remove label ->

@@ -5,28 +5,7 @@ open Farkle.Builder
 open Farkle.Builder.Regex
 open Microsoft.FSharp.Core
 
-module Range =
-    type T = int64*int64
-    let create from to' : T = (from,to')
-    let start ((from, _) : T) = from
-    let finish ((_, to') : T) = to'
-    let isEmpty ((from, to') : T) =
-        to' < from
-    let contains x ((from, to') : T) = from <= x && x <= to'
-    let intersect r1 r2 =
-        let intersectionCandidate =
-            (max (start r1) (start r2), min (finish r1) (finish r2))
-        if isEmpty intersectionCandidate then None
-        else Some intersectionCandidate
-    let subtract ((from1, to1) : T) ((from2, to2) : T) =
-        [
-            (from1, min (from2-1L) to1)
-            (max from1 (to2+1L), to1)
-        ] |> List.filter (not << isEmpty)
-        
-    let shift n ((from, to') : T) =
-        (from + n, to' + n)
-            
+
 type RangeMap = { From: Range.T; Shift: int64 }
 type RangesMaps = RangeMap list
 
@@ -56,16 +35,14 @@ let parse input =
     
     let seedsInput =
         blocks[0]
-        |> RuntimeFarkle.parseString (
+        |> RuntimeFarkle.parseUnsafe (
                 RuntimeFarkle.build ("Seeds" ||= [
                     !& "seeds: " .>>. (many1 number) |> asIs
-            ])
-        ) |> Result.get
+        ]))
         
     let mapsArrayInput = 
         blocks[1..]
-        |> Seq.map (RuntimeFarkle.parseString (RuntimeFarkle.build rangeMaps))
-        |> Seq.map Result.get
+        |> Seq.map (RuntimeFarkle.parseUnsafe (RuntimeFarkle.build rangeMaps))
         |> Seq.toList
     
     seedsInput, mapsArrayInput
