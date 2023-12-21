@@ -60,7 +60,7 @@ module Custom =
         visited.Add (settings.VisitedKey start) |> ignore
         let queue = Queue<'a list>()
         queue.Enqueue([start])
-        findPath' [[start]] target visited queue settings parameters
+        findPath' [[]] target visited queue settings parameters
 
 module Matrix = 
     type State<'a> = { Coordinates: int*int; Value: 'a; Matrix: 'a[,] }
