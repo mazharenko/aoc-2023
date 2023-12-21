@@ -48,7 +48,7 @@ let private target _ = false
 let private adjacency state =
     beamChange (state.Beam.Direction, (state.Contraption |> Array2D.atPoint state.Beam.Position))
     |> List.map (fun facing -> { Position = facing + state.Beam.Position; Direction = facing })
-    |> List.where (fun beam -> Array2D.tryAtPoint beam.Position state.Contraption |> Option.isSome)
+    |> List.where (fun beam -> Array2D.tryAtPoint state.Contraption beam.Position |> Option.isSome)
     |> List.map (fun beam -> { state with Beam = beam })
 
 // this is a wierd part. BFS works relatively fast. it returns a list of lists of

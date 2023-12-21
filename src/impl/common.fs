@@ -25,7 +25,9 @@ let inline lcm x y =
     if x = zero || y = zero
     then zero
     else abs (x * y) / gcd x y
-    
+
+let inline (%%) (x: ^a when INumber<^a>) (y: ^a) : ^a = ((x % y) + y) % y
+
 let memoize f keyf =
     let cache = Dictionary<_, _>()
     fun x ->
@@ -115,7 +117,7 @@ module Array2D =
         else None
     let atPoint (Point(i,j)) source = 
         Array2D.get source i j
-    let tryAtPoint (Point(i,j)) source = 
+    let tryAtPoint source (Point(i,j)) = 
         tryGet i j source
     let transpose (a:'a[,]) = 
         Array2D.initBased
@@ -145,6 +147,11 @@ module Array2D =
     let rotateCW (a: 'a[,]) : 'a[,] =
         Array2D.init (Array2D.length2 a) (Array2D.length1 a)
             (fun i j -> a[Array2D.length2 a - j - 1, i ])
+    let findIndex predicate a =
+        a |> indexed
+        |> toSeq
+        |> Seq.find (snd >> predicate)
+        |> fst
         
     module Adj =
         let d4 =
