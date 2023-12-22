@@ -41,7 +41,7 @@ let solve2 input =
             |> Seq.toList
     let initialState = { I = 65; J = 65; M = input; Steps = 0 }
     let (NotFound(paths)) = findPath settings { Adjacency = adjacency } initialState target
-    let pathSteps = paths |> Seq.map (List.head >> _.Len >> id ) |> Seq.toArray
+    let pathSteps = paths |> Seq.map (List.head >> _.Len) |> Seq.toArray
     seq { 65 .. 131 .. 1000 }
     |> Seq.map (fun x ->
         pathSteps |> Seq.where (fun p -> p <= x && x % 2 = p % 2) |> Seq.length
