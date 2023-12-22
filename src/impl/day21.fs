@@ -29,7 +29,7 @@ let solve2 input =
     let target = fun _ -> false 
     let settings = { VisitedKey = fun s -> s.I, s.J, s.Steps%2 }
     let adjacency { I = currentI; J = currentJ; M = m; Steps = steps } =
-        if steps >= 1000 then []
+        if steps >= 800 then []
         else
             Array2D.Adj.d4
             |> Seq.map (fun (di, dj) -> (currentI + di, currentJ + dj))
@@ -41,7 +41,7 @@ let solve2 input =
             |> Seq.toList
     let initialState = { I = 65; J = 65; M = input; Steps = 0 }
     let (NotFound(paths)) = findPath settings { Adjacency = adjacency } initialState target
-    let pathSteps = paths |> Seq.map Seq.length |> Seq.map (fun i -> i - 1)
+    let pathSteps = paths |> Seq.map (List.head >> _.Len >> id ) |> Seq.toArray
     seq { 65 .. 131 .. 1000 }
     |> Seq.map (fun x ->
         pathSteps |> Seq.where (fun p -> p <= x && x % 2 = p % 2) |> Seq.length

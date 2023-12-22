@@ -70,7 +70,7 @@ let private countUniqueElements lists =
     let rec addToSet list =
         match list with
         | [] -> ()
-        | x::xs ->
+        | {Item = x}::xs ->
             if used.Add list then
                 set.Add x.Beam.Position |> ignore
                 addToSet xs

@@ -6,8 +6,9 @@ module Bfs
 open System.Collections.Generic
 
 [<AutoOpen>]
-module common = 
-    type Path<'a> = 'a list
+module common =
+    type PathItem<'a> = { Item: 'a; Len: int }
+    type Path<'a> = PathItem<'a> list
     type Result<'a> = 
         | Found of Path<'a>
         | NotFound of Path<'a> list
@@ -26,22 +27,22 @@ module Custom =
     type Parameters<'a> = { Adjacency: Adjacency<'a> }
 
     let rec private findPath' 
-            ((state::prevStates) : Path<'a> list) 
+            (prevStates : Path<'a> list) 
             (target : Target<'a>) 
             (visited: HashSet<'key>) 
-            (q : Queue<'a list>)
+            (q : Queue<PathItem<'a> list>)
             (settings : Settings<'a, 'key>)
             (parameters : Parameters<'a>) =
         if (q.Count = 0)
         then
-            NotFound (state::prevStates)
+            NotFound prevStates
         else 
             let current::rest = q.Dequeue();
-            if target current
+            if target current.Item
             then
                 Found (current::rest)
             else 
-                let adjacent = parameters.Adjacency current
+                let adjacent = parameters.Adjacency current.Item
 
                 adjacent
                 |> Seq.filter (fun a ->
@@ -51,16 +52,16 @@ module Custom =
                 |> Seq.iter (
                     fun value' -> 
                         visited.Add (settings.VisitedKey value') |> ignore
-                        q.Enqueue (value'::current::rest)
+                        q.Enqueue ({Item = value'; Len = current.Len+1}::current::rest)
                 )
-                findPath' ((current::rest)::state::prevStates) target visited q settings parameters
+                findPath' ((current::rest)::prevStates) target visited q settings parameters
 
     let findPath (settings : Settings<'a,'key>) (parameters : Parameters<'a>)  (start: 'a) (target : Target<'a>) = 
         let visited = HashSet<'key>()
         visited.Add (settings.VisitedKey start) |> ignore
-        let queue = Queue<'a list>()
-        queue.Enqueue([start])
-        findPath' [[]] target visited queue settings parameters
+        let queue = Queue<PathItem<'a> list>()
+        queue.Enqueue([{Item = start; Len = 0}])
+        findPath' [] target visited queue settings parameters
 
 module Matrix = 
     type State<'a> = { Coordinates: int*int; Value: 'a; Matrix: 'a[,] }
