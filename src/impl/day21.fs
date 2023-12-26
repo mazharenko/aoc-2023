@@ -9,9 +9,9 @@ let parse input =
     Pattern1.read Seq.toArray input
     |> array2D
     
-type State = { I: int; J:int; M: char[,]; Steps: int }
+type private State = { I: int; J:int; M: char[,]; Steps: int }
+
 let solve1 input =
-    let target = fun _ -> false 
     let settings = { VisitedKey = fun s -> s.I,s.J,s.Steps }
     let adjacency { I = i; J = j; M = m; Steps = steps } =
         if (steps >= 64) then []
@@ -20,13 +20,12 @@ let solve1 input =
             |> List.where (fun (_, c) -> c = '.' || c = 'S')
             |> List.map (fun ((i, j), _) -> { I = i; J = j; M = m; Steps = steps+1 })
     let initialState = { I = 65; J = 65; M = input; Steps = 0 }
-    let (NotFound(paths)) = findPath settings { Adjacency = adjacency } initialState target
-    paths
-    |> List.where (List.length >> ((=)65))
-    |> List.length
+    let graphFolder reachedIn65Steps (reached: Path<State>) =
+        if reached.Length = 65 then reachedIn65Steps + 1, Continue
+        else reachedIn65Steps, Continue
+    fold settings { Adjacency = adjacency } initialState graphFolder 0
     
 let solve2 input =
-    let target = fun _ -> false 
     let settings = { VisitedKey = fun s -> s.I, s.J, s.Steps%2 }
     let adjacency { I = currentI; J = currentJ; M = m; Steps = steps } =
         if steps >= 800 then []
@@ -40,8 +39,11 @@ let solve2 input =
             |> Seq.map (fun (i, j) -> { I = i; J = j; M = m; Steps = steps+1 })
             |> Seq.toList
     let initialState = { I = 65; J = 65; M = input; Steps = 0 }
-    let (NotFound(paths)) = findPath settings { Adjacency = adjacency } initialState target
-    let pathSteps = paths |> Seq.map (List.head >> _.Len) |> Seq.toArray
+    let graphFolder steps (reached: Path<State>) =
+        reached.Head.Len :: steps, Continue
+    let pathSteps =
+        fold settings { Adjacency = adjacency } initialState graphFolder []
+        |> List.toArray
     seq { 65 .. 131 .. 1000 }
     |> Seq.map (fun x ->
         pathSteps |> Seq.where (fun p -> p <= x && x % 2 = p % 2) |> Seq.length

@@ -11,7 +11,7 @@ module common =
     type Path<'a> = PathItem<'a> list
     type Result<'a> = 
         | Found of Path<'a>
-        | NotFound of Path<'a> list
+        | NotFound
     
 module Custom = 
     type Adjacency<'a> = 'a -> 'a list
@@ -26,24 +26,27 @@ module Custom =
     
     type Parameters<'a> = { Adjacency: Adjacency<'a> }
 
-    let rec private findPath' 
-            (prevStates : Path<'a> list) 
-            (target : Target<'a>) 
-            (visited: HashSet<'key>) 
-            (q : Queue<PathItem<'a> list>)
-            (settings : Settings<'a, 'key>)
-            (parameters : Parameters<'a>) =
-        if (q.Count = 0)
-        then
-            NotFound prevStates
-        else 
-            let current::rest = q.Dequeue();
-            if target current.Item
-            then
-                Found (current::rest)
-            else 
+    
+    // attempt to introduce something more generic than searching in a graph
+    // more like traversal. fold seems to suit the most scenarios.
+    // can't imagine mapping or unfolding a graph.
+    // scan could be useful though
+    type TraversalResult = | Continue | Interrupt
+    type Folder<'a, 'res> = 'res -> Path<'a> -> 'res * TraversalResult
+    let rec private fold'
+        (folder : Folder<'a, 'res>)
+        (folderState : 'res)
+        (visited: HashSet<'key>) 
+        (q : Queue<PathItem<'a> list>)
+        (settings : Settings<'a, 'key>)
+        (parameters : Parameters<'a>) =
+        if q.Count = 0 then folderState
+        else
+            let current::rest = q.Dequeue()
+            match folder folderState (current::rest) with
+            | x, Interrupt -> x
+            | x, Continue ->
                 let adjacent = parameters.Adjacency current.Item
-
                 adjacent
                 |> Seq.filter (fun a ->
                         let key = settings.VisitedKey a
@@ -54,15 +57,23 @@ module Custom =
                         visited.Add (settings.VisitedKey value') |> ignore
                         q.Enqueue ({Item = value'; Len = current.Len+1}::current::rest)
                 )
-                findPath' ((current::rest)::prevStates) target visited q settings parameters
-
-    let findPath (settings : Settings<'a,'key>) (parameters : Parameters<'a>)  (start: 'a) (target : Target<'a>) = 
+                fold' folder x visited q settings parameters
+        
+    let fold (settings : Settings<'a,'key>) (parameters : Parameters<'a>) (start: 'a) folder initialState =
         let visited = HashSet<'key>()
         visited.Add (settings.VisitedKey start) |> ignore
-        let queue = Queue<PathItem<'a> list>()
+        let queue = Queue<Path<'a>>()
         queue.Enqueue([{Item = start; Len = 0}])
-        findPath' [] target visited queue settings parameters
+        fold' folder initialState visited queue settings parameters
 
+    let findPath (settings : Settings<'a,'key>) (parameters : Parameters<'a>) (start: 'a) (target : Target<'a>) = 
+        let folder : Folder<'a, Result<'a>> =
+            fun _ (current::_ as path) -> 
+                if target current.Item then (Found path), Interrupt
+                else NotFound, Continue
+        fold settings parameters start folder NotFound
+        
+        
 module Matrix = 
     type State<'a> = { Coordinates: int*int; Value: 'a; Matrix: 'a[,] }
 
@@ -83,7 +94,7 @@ module Matrix =
                     then Some ((i',j'), m[i', j'])
                     else None
                 )
-        let where condition (adj: Adjacency<'a>) : Adjacency<'a> =                 
+        let where condition (adj: Adjacency<'a>) : Adjacency<'a> =
             fun (i,j) value m ->
                 adj (i,j) value m
                 |> List.filter(fun (_, value') -> condition value value')
