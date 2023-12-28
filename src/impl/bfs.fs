@@ -48,14 +48,10 @@ module Custom =
             | x, Continue ->
                 let adjacent = parameters.Adjacency current.Item
                 adjacent
-                |> Seq.filter (fun a ->
-                        let key = settings.VisitedKey a
-                        not <| visited.Contains key
-                    )
                 |> Seq.iter (
                     fun value' -> 
-                        visited.Add (settings.VisitedKey value') |> ignore
-                        q.Enqueue ({Item = value'; Len = current.Len+1}::current::rest)
+                        if visited.Add (settings.VisitedKey value')
+                        then q.Enqueue ({Item = value'; Len = current.Len+1}::current::rest)
                 )
                 fold' folder x visited q settings parameters
         
