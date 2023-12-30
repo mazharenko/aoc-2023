@@ -3,7 +3,9 @@ module Bfs
 
 #nowarn "25"
 
+open System
 open System.Collections.Generic
+open System.Numerics
 
 [<AutoOpen>]
 module common =
@@ -15,7 +17,13 @@ module common =
     
 module Custom = 
     type Adjacency<'a> = 'a -> 'a list
-    
+    type AdjacencyW<'a> = 'a -> ('a*int) list
+    module Adjacency =
+        let sameWeight (adj : Adjacency<'a>) : AdjacencyW<'a> =
+            fun state ->
+                adj state
+                |> List.map (fun a -> a, 1)
+            
     type Target<'a> = 'a -> bool
     module Targets =
         let value x : Target<_> = (fun x' -> x = x')
@@ -24,7 +32,7 @@ module Custom =
     module Settings =
         let defaults : Settings<_,_> = {VisitedKey = id;}
     
-    type Parameters<'a> = { Adjacency: Adjacency<'a> }
+    type Parameters<'a> = { Adjacency: AdjacencyW<'a> }
 
     
     // attempt to introduce something more generic than searching in a graph
@@ -37,7 +45,7 @@ module Custom =
         (folder : Folder<'a, 'res>)
         (folderState : 'res)
         (visited: HashSet<'key>) 
-        (q : Queue<PathItem<'a> list>)
+        (q : PriorityQueue<PathItem<'a> list, int>)
         (settings : Settings<'a, 'key>)
         (parameters : Parameters<'a>) =
         if q.Count = 0 then folderState
@@ -49,17 +57,17 @@ module Custom =
                 let adjacent = parameters.Adjacency current.Item
                 adjacent
                 |> Seq.iter (
-                    fun value' -> 
+                    fun (value', w) -> 
                         if visited.Add (settings.VisitedKey value')
-                        then q.Enqueue ({Item = value'; Len = current.Len+1}::current::rest)
+                        then q.Enqueue ({Item = value'; Len = current.Len + w}::current::rest, w + current.Len)
                 )
                 fold' folder x visited q settings parameters
         
     let fold (settings : Settings<'a,'key>) (parameters : Parameters<'a>) (start: 'a) folder initialState =
         let visited = HashSet<'key>()
         visited.Add (settings.VisitedKey start) |> ignore
-        let queue = Queue<Path<'a>>()
-        queue.Enqueue([{Item = start; Len = 0}])
+        let queue = PriorityQueue<Path<'a>, int>()
+        queue.Enqueue([{Item = start; Len = 0}], Int32.MinValue)
         fold' folder initialState visited queue settings parameters
 
     let findPath (settings : Settings<'a,'key>) (parameters : Parameters<'a>) (start: 'a) (target : Target<'a>) = 
@@ -119,7 +127,7 @@ module Matrix =
             Adjacency = 
                 fun state -> 
                     parameters.Adjacency state.Coordinates state.Value state.Matrix
-                    |> List.map (fun (c, v) -> { Coordinates = c; Value = v; Matrix = state.Matrix})
+                    |> List.map (fun (c, v) -> { Coordinates = c; Value = v; Matrix = state.Matrix}, 1)
         }
 
     let findPath (parameters : Parameters<'a>) (matrix: 'a[,]) (starti,startj as start: int*int) (target : Target<'a>) = 

@@ -23,7 +23,7 @@ let solve1 input =
     let graphFolder reachedIn65Steps (reached: Path<State>) =
         if reached.Length = 65 then reachedIn65Steps + 1, Continue
         else reachedIn65Steps, Continue
-    fold settings { Adjacency = adjacency } initialState graphFolder 0
+    fold settings { Adjacency = Adjacency.sameWeight adjacency } initialState graphFolder 0
     
 let solve2 input =
     let settings = { VisitedKey = fun s -> s.I, s.J, s.Steps%2 }
@@ -42,7 +42,7 @@ let solve2 input =
     let graphFolder steps (reached: Path<State>) =
         reached.Head.Len :: steps, Continue
     let pathSteps =
-        fold settings { Adjacency = adjacency } initialState graphFolder []
+        fold settings { Adjacency = Adjacency.sameWeight adjacency } initialState graphFolder []
         |> List.toArray
     seq { 65 .. 131 .. 1000 }
     |> Seq.map (fun x ->

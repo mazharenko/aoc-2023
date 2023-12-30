@@ -47,7 +47,7 @@ let private connections matrix point =
     Shape.connectedTilesVectors pipe.Shape
     |> List.choose (fun p ->
         let adjPoint = p + point
-        match Array2D.tryAtPoint matrix adjPoint with
+        match Array2D.tryAtPoint adjPoint matrix with
         | Some adj -> Some (adjPoint, adj)
         | None -> None
     )

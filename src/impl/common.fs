@@ -54,6 +54,7 @@ let memorec f keyf =
 
 module gmath =
     let sign (a: 'a when INumber<'a>) =
+        
         a |> 'a.Sign |> 'a.CreateChecked
     let abs (a: 'a when INumberBase<'a>) =
         'a.Abs a
@@ -71,6 +72,8 @@ type Point<^a when INumber<^a>> = | Point of (^a * ^a) with
         let x = x1 * n
         let y = y1 * n
         Point (x, y)
+    static member Zero = Point('a.Zero, 'a.Zero)
+    
 type Point = Point<int>
     
 module Point =
@@ -81,6 +84,49 @@ module Point =
         Point(gmath.sign x, gmath.sign y)
     let mlen (Point(x1: 'a, y1: 'a)) (Point (x2: 'a, y2: 'a)) =
         gmath.abs (x1 - x2) + gmath.abs (y1 - y2)
+    
+    let down() : Point<'a> = Point ('a.One,'a.Zero)
+    let up() : Point<'a> = Point ('a.op_CheckedUnaryNegation 'a.One, 'a.Zero)
+    let right() : Point<'a> = Point ('a.Zero,'a.One)
+    let left() : Point<'a> = Point ('a.Zero, 'a.op_CheckedUnaryNegation 'a.One)
+    
+    module Rotation =
+        type Rotation = private | T of int[,]
+        with static member (*) (T(r1), T(r2)) =
+                Array2D.init 2 2 (fun i j ->
+                    (r1[i,*], r2[*,j])
+                    ||> Seq.zip
+                    |> Seq.map (fun (x,y) -> x*y)
+                    |> Seq.sum
+                ) |> T
+            
+        let id : Rotation =
+            [
+                [1; 0]
+                [0; 1]
+            ]
+            |> array2D |> T
+        let cw : Rotation =
+            [
+                [0; 1]
+                [-1; 0]
+            ] |> array2D |> T
+        let ccw : Rotation =
+            [
+                [0; -1]
+                [1; 0]
+            ] |> array2D |> T
+        
+        let rotate (T(rotation):Rotation) (point:Point) =
+            let i =
+                rotation[0,0] * x point
+                + rotation[0,1] * y point
+            let j =
+                rotation[1,0] * x point
+                + rotation[1,1] * y point
+            Point(i,j)
+        let rotateCW = rotate cw
+        let rotateCCW = rotate ccw
 
 module Pattern1 =
     let read (f : string -> 'a) (data : string) = 
@@ -117,7 +163,7 @@ module Array2D =
         else None
     let atPoint (Point(i,j)) source = 
         Array2D.get source i j
-    let tryAtPoint source (Point(i,j)) = 
+    let tryAtPoint (Point(i,j)) source = 
         tryGet i j source
     let transpose (a:'a[,]) = 
         Array2D.initBased

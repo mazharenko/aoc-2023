@@ -41,7 +41,7 @@ let private settings = { VisitedKey = _.Beam }
 let private adjacency state =
     beamChange (state.Beam.Direction, (state.Contraption |> Array2D.atPoint state.Beam.Position))
     |> List.map (fun facing -> { Position = facing + state.Beam.Position; Direction = facing })
-    |> List.where (fun beam -> Array2D.tryAtPoint state.Contraption beam.Position |> Option.isSome)
+    |> List.where (fun beam -> Array2D.tryAtPoint beam.Position state.Contraption |> Option.isSome)
     |> List.map (fun beam -> { state with Beam = beam })
 // as we traverse the graph, fold its nodes to a set
 let private graphFolder reachedSet (reached: Path<State>) =
@@ -49,7 +49,7 @@ let private graphFolder reachedSet (reached: Path<State>) =
 
 let solve1 input =
     let initialState = { Beam = {Position = Point(0,0); Direction = right }; Contraption = input; }
-    fold settings { Adjacency = adjacency } initialState graphFolder Set.empty
+    fold settings { Adjacency = Adjacency.sameWeight adjacency } initialState graphFolder Set.empty
     |> Set.count
     
 let solve2 input =
@@ -60,7 +60,7 @@ let solve2 input =
     startBeams
     |> Seq.map (fun startBeam ->
         let initialState = { Beam = startBeam; Contraption = input; }
-        fold settings { Adjacency = adjacency } initialState graphFolder Set.empty
+        fold settings { Adjacency = Adjacency.sameWeight adjacency } initialState graphFolder Set.empty
         |> Set.count
     ) |> Seq.max
      
