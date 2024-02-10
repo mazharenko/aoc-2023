@@ -30,8 +30,8 @@ let private rangeMaps = "Maps" ||= [
         .>>. (sepBy1 newline rangeMap)
         |> asIs
 ]
-let parse input =
-    let blocks = input |> Pattern2.read id
+let parse (input : string) =
+    let blocks = input.Trim() |> Pattern2.read id
     
     let seedsInput =
         blocks[0]
