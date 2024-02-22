@@ -1,5 +1,7 @@
 module impl.day07
 
+#nowarn "25"
+
 open System
 
 module Part1 =

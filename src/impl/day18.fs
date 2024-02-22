@@ -1,5 +1,7 @@
 module impl.day18
 
+#nowarn "25"
+
 open Farkle
 open Farkle.Builder
 open Farkle.Builder.Regex
