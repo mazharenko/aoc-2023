@@ -5,7 +5,7 @@ using mazharenko.AoCAgent;
 using mazharenko.AoCAgent.Base;
 
 namespace mazharenko.AoCAgent.GeneratedRunner;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("mazharenko.AoCAgent.Generator", "4.2.0")]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("mazharenko.AoCAgent.Generator", "5.0.0")]
 public class YearCollection : System.Collections.ObjectModel.ReadOnlyCollection<YearBase>
 {
 	public YearCollection() : base(new System.Collections.Generic.List<YearBase> { new aoc.Year2023() })

@@ -6,7 +6,7 @@ using mazharenko.AoCAgent.Base;
 
 namespace aoc.Day17
 {
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("mazharenko.AoCAgent.Generator", "4.2.0")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("mazharenko.AoCAgent.Generator", "5.0.0")]
 	partial class Day17
 	{
 		private interface IPart1 : IPart

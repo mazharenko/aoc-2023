@@ -4,7 +4,7 @@ using Spectre.Console;
 using System.Threading.Tasks;
 using System;
 
-[System.CodeDom.Compiler.GeneratedCodeAttribute("mazharenko.AoCAgent.Generator", "4.2.0")]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("mazharenko.AoCAgent.Generator", "5.0.0")]
 internal class Program
 {
 	private static async Task Main(string[] args)
