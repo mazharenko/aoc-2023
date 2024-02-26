@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="mazharenko.AocAgent" Version="4.2.0" />
+    <PackageReference Include="mazharenko.AocAgent" Version="5.0.0" />
     <PackageReference Include="Microsoft.Z3" Version="4.12.2" />
   </ItemGroup>
   <ItemGroup>
