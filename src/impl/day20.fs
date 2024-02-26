@@ -104,9 +104,12 @@ let solve1 input =
     
 let solve2 input =
     let initialState = { Modules = input; Pulses = []; HighSentTo = []; LowSentTo = [] }
-    // rx receives Low when all sk, xc, kk, vk receive High
+    // rx receives Low when all rxSources receive High
     // assume each of them does that every nth button press, and n is relatively small
-    let rxSources = ["sk"; "xc"; "kk"; "vt"]
+    let toRx = input |> Map.findKey (fun _ value -> value.To |> List.contains "rx")
+    let rxSources =
+        input |> Map.toSeq |> Seq.filter (fun (_, value) -> value.To |> List.contains toRx) |> Seq.map fst
+        |> Seq.toArray
     Seq.initInfinite ((+)1)
     |> Seq.scan (fun (_,state) i ->
         let newState = {state with HighSentTo = []; LowSentTo = []} |> State.queuePulses [buttonPulse] |> run
