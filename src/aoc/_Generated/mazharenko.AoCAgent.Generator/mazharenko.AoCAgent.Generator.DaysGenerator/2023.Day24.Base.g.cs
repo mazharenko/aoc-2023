@@ -62,14 +62,13 @@ namespace aoc.Day24
 
 		private interface IPart2 : IPart
 		{
-			string Solve(string input);
-			string Parse(string input);
+			long Solve(global::impl.day24.Ray[] input);
+			global::impl.day24.Ray[] Parse(string input);
 		}
 
 		abstract internal class Part2Base
 		{
-			public virtual string Format(string res) => res!.ToString()!;
-			public virtual string Parse(string input) => input.Trim();
+			public virtual string Format(long res) => res!.ToString()!;
 		}
 
 		partial class Part2 : Part2Base, IPart2
@@ -80,7 +79,6 @@ namespace aoc.Day24
 				ManualInterpretation = false
 			};
 
-			public override string Format(string res) => res;
 			public System.Collections.Generic.IEnumerable<NamedExample> GetExamples()
 			{
 				yield break;
@@ -92,17 +90,17 @@ namespace aoc.Day24
 				return Format(Solve(parsedInput));
 			}
 
-			private record Example(string Input, string Expectation) : IExample<string>
+			private record Example(string Input, long Expectation) : IExample<long>
 			{
 				private string expectationFormatted = null !;
 				private static global::aoc.Day24.Day24.Part2 part = new aoc.Day24.Day24.Part2();
-				public string Run()
+				public long Run()
 				{
 					var parsedInput = part.Parse(Input);
 					return part.Solve(parsedInput);
 				}
 
-				public string RunFormat(out string formatted)
+				public long RunFormat(out string formatted)
 				{
 					var res = Run();
 					formatted = part.Format(res);
