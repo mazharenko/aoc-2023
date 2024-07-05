@@ -5,13 +5,13 @@ namespace aoc.Day24;
 
 internal partial class Day24
 {
+	// this day is solved with Z3 SMT-solver in C# not in F#
+	// because F# fails to understand overloaded comparison
+	// operators e.g. ArithExpr.>=
+	
 	[BypassNoExamples]
 	internal partial class Part1
 	{
-		// this day is solved with Z3 SMT-solver in C# not in F#
-		// because F# fails to understand overloaded comparison
-		// operators e.g. ArithExpr.>=
-		
 		public day24.Ray[] Parse(string input) => day24.parse(input);
 
 		public long Solve(day24.Ray[] input)
@@ -44,21 +44,16 @@ internal partial class Day24
 			// Then we want to create assertion objects for all the rays in advance to
 			// save some allocations
 
-			var inputEquations = input.Select(xx =>
-			{
-				var x = ctx.MkReal(xx.x);
-				var dx = ctx.MkReal(xx.dx);
-				var y = ctx.MkReal(xx.y);
-				var dy = ctx.MkReal(xx.dy);
-				return new
+			var inputEquations = input.Select(ray =>
+				new
 				{
 					// almost each of the rays can be both A and B in the equation system above
-					EqAsA = ctx.MkEq(intersectionX, x + dx * tA)
-					        & ctx.MkEq(intersectionY, y + dy * tA),
-					EqAsB = ctx.MkEq(intersectionX, x + dx * tB)
-					        & ctx.MkEq(intersectionY, y + dy * tB)
-				};
-			}).ToList();
+					EqAsA = ctx.MkEq(intersectionX, ray.x + ray.dx * tA)
+					        & ctx.MkEq(intersectionY, ray.y + ray.dy * tA),
+					EqAsB = ctx.MkEq(intersectionX, ray.x + ray.dx * tB)
+					        & ctx.MkEq(intersectionY, ray.y + ray.dy * tB)
+				}
+			).ToList();
 			
 			// Iterate over ray pairs in a way that allows to reuse states
 			// of the solver
@@ -101,9 +96,32 @@ internal partial class Day24
 	[BypassNoExamples]
 	internal partial class Part2
 	{
-		public string Solve(string input)
+		public day24.Ray[] Parse(string input) => day24.parse(input);
+
+		public long Solve(day24.Ray[] input)
 		{
-			throw new NotImplementedException();
+			using var ctx = new Context();
+			var solver = ctx.MkSolver();
+			var x = ctx.MkRealConst("x")!;
+			var y = ctx.MkRealConst("y")!;
+			var z = ctx.MkRealConst("z")!;
+			var dx = ctx.MkRealConst("dx")!;
+			var dy = ctx.MkRealConst("dy")!;
+			var dz = ctx.MkRealConst("dz")!;
+			
+			for (var i = 0; i < input.Length; i++)
+			{
+				var ray = input[i];
+				var ti = ctx.MkRealConst($"t{i}")!;
+				solver.Add(ti >= 0);
+				solver.Add(ctx.MkEq(x + ti * dx, ray.x + ti * ray.dx));
+				solver.Add(ctx.MkEq(y + ti * dy, ray.y + ti * ray.dy));
+				solver.Add(ctx.MkEq(z + ti * dz, ray.z + ti * ray.dz));
+			}
+
+			solver.Check();
+			
+			return (long)((RatNum)solver.Model.Eval(x + y + z)).Double;
 		}
 	}
 }
